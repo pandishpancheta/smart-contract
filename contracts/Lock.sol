@@ -57,3 +57,19 @@ contract StockImageNFT is ERC721, Ownable {
         bytes32 itemId = tokenId;
         items[itemId] = Item(msg.sender, token, priceInWei);
     }
+
+    function purchaseAndMint(bytes32 itemId) public payable {
+        require(msg.value == items[itemId].priceInWei, "Incorrect payment amount");
+
+        address itemOwner = items[itemId].owner;
+        string memory token = items[itemId].tokenURI;
+
+        uint256 newTokenId = _tokenIdCounter++;
+
+        _safeMint(msg.sender, newTokenId);  
+        _setTokenURI(newTokenId, token);
+
+        (bool success, ) = itemOwner.call{value: msg.value}(""); 
+        require(success, "Transfer to owner failed");
+    }
+}

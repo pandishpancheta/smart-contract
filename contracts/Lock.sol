@@ -52,3 +52,8 @@ contract StockImageNFT is ERC721, Ownable {
 
         return string(abi.encodePacked(base, tokenId));
     }
+
+    function addItem(bytes32 tokenId, string memory token, uint256 priceInWei) public {
+        bytes32 itemId = tokenId;
+        items[itemId] = Item(msg.sender, token, priceInWei);
+    }

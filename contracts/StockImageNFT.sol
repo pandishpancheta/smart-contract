@@ -26,7 +26,7 @@ contract StockImageNFT is ERC721, Ownable {
 
     event BaseURIChanged(string baseURI);
     event ItemAdded(bytes32 itemId, address owner, string token, uint256 priceInWei);
-    event ItemPurchased(bytes32 itemId, address buyer, uint256 tokenId, uint256 orderId);
+    event ItemPurchased(bytes32 itemId, address buyer, uint256 tokenId, bytes32 orderId);
 
     function setBaseURI(string memory baseURI_) external onlyOwner() {
         _baseURIextended = baseURI_;
